@@ -129,7 +129,7 @@
       scoreEl.textContent = score();
       data.forEach((q,idx)=>{
         const c=document.createElement('div'); c.className='card';
-        const h=document.createElement('div'); h.className='ref'; h.textContent = "Domanda "+(idx+1)+" · Riferimento: "+q.ref;
+        const h=document.createElement('div'); h.className='ref'; h.textContent = "Domanda "+(idx+1)+";
         const t=document.createElement('div'); t.className='qtext'; t.textContent = q.text;
         const opts=document.createElement('div'); opts.className='opts';
         q.options.forEach((o,i)=>{ 
