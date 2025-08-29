@@ -75,21 +75,24 @@
     return a;
   }
 
-  // Genera i 5 test
+  // Genera i 5 test A–E con ordine delle domande mescolato
   const seeds = {"A":111, "B":222, "C":333, "D":444, "E":555};
   const tests = {};
-  for(const [label,seed] of Object.entries(seeds)){
+  for (const [label,seed] of Object.entries(seeds)) {
     const rng = LCG(seed);
     const qs = [];
-    for(const art of ARTICOLI){
+    // 👇 mescola l'ordine degli articoli per questo test
+    const artsShuffled = shuffleWithRng(ARTICOLI, rng);
+    for (const art of artsShuffled) {
       const correct = art.num;
       const distractors = pickKExcept(rng, 42, correct, 3);
       const options = shuffleWithRng([correct, ...distractors], rng).map(n => ({label:"Articolo "+n, value:n}));
       const correctIdx = options.findIndex(o => o.value===correct);
       qs.push({ id:label+"-"+correct, ref:"Articolo "+correct, text:art.text, options, correct:correctIdx });
     }
-    tests[label] = qs;
+    tests[label] = qs; // qs è già in ordine mescolato
   }
+
 
   const tabs = document.getElementById('test-tabs');
   const app = document.getElementById('app');
